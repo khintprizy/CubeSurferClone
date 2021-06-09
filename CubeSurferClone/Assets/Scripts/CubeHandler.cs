@@ -5,12 +5,10 @@ using UnityEngine;
 public class CubeHandler : MonoBehaviour
 {
     private GameObject player;
-    private GameManager gameManager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,7 +42,7 @@ public class CubeHandler : MonoBehaviour
 
         if (collision.transform.gameObject.tag == "Coin")
         {
-            gameManager.AddScore(1);
+            GameManager.singleton.AddScore(1);
             Destroy(collision.gameObject);
         }
     }

@@ -5,24 +5,19 @@ using UnityEngine;
 public class GameOver : MonoBehaviour
 {
     //public bool isGameOver;
-    private GameObject player;
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "DestroyerCube" || collision.gameObject.tag == "LavaSurface")
+        if (collision.gameObject.tag == "DestroyerCube" || collision.gameObject.tag == "LavaSurface" || collision.gameObject.tag == "Ground")
         {
-            Failed();
+            GameManager.singleton.Failed();
         }
+        if (collision.gameObject.tag == "Coin")
+        {
+            Destroy(collision.gameObject);
+        }
+        
     }
 
-    public void Failed()
-    {
-        player.GetComponent<PlayerMovement>().speed = 0;
-        Debug.Log("GameOver!!!!!!");
-    }
+
 }

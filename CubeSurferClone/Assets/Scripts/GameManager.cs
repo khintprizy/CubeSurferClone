@@ -11,6 +11,19 @@ public class GameManager : MonoBehaviour
 
     public Text scoreText;
 
+    public static GameManager singleton;
+    void Awake()
+    {
+        if (singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -42,5 +55,11 @@ public class GameManager : MonoBehaviour
     void ReloadScene()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    public void Failed()
+    {
+        RestartGame();
+        Debug.Log("Game Over!!!!!!");
     }
 }

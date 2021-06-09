@@ -10,6 +10,7 @@ TagManager:
   - LavaSurface
   - PlayerGFX
   - Coin
+  - Ground
   layers:
   - Default
   - TransparentFX
