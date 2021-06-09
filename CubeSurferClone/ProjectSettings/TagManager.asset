@@ -9,6 +9,7 @@ TagManager:
   - DestroyerCube
   - LavaSurface
   - PlayerGFX
+  - Coin
   layers:
   - Default
   - TransparentFX

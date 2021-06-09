@@ -5,10 +5,12 @@ using UnityEngine;
 public class CubeHandler : MonoBehaviour
 {
     private GameObject player;
+    private GameManager gameManager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -20,6 +22,9 @@ public class CubeHandler : MonoBehaviour
                 collision.collider.enabled = false;
             }
             //gameObject.transform.parent = null;
+            /*float playerPosY = player.transform.position.y;
+            playerPosY = playerPosY - 1f;
+            player.transform.position = new Vector3(player.transform.position.x, playerPosY, player.transform.position.z);*/
             Destroy(gameObject);
         }
 
@@ -29,12 +34,18 @@ public class CubeHandler : MonoBehaviour
             go.gameObject.tag = "MainCube";
 
             float playerPosY = player.transform.position.y;
-            playerPosY = playerPosY + 1.35f;
+            playerPosY = playerPosY + 1.1f;
             player.transform.position = new Vector3(player.transform.position.x, playerPosY, player.transform.position.z);
             go.parent = player.transform;
 
-            float posgoY = -(player.transform.childCount + 1f + 0.1f);
+            float posgoY = -(player.transform.childCount - 1.31f);
             go.localPosition = new Vector3(0, posgoY, 0);
+        }
+
+        if (collision.transform.gameObject.tag == "Coin")
+        {
+            gameManager.AddScore(1);
+            Destroy(collision.gameObject);
         }
     }
 }
