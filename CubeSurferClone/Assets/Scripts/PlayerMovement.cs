@@ -46,28 +46,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerRb.velocity = Vector3.forward * _speed * Time.deltaTime * 20;
+        //Vector3 tempVect = new Vector3(0, 0, 1);                            //rb.moveposition ile hareket
+        //tempVect = tempVect.normalized * speed * Time.fixedDeltaTime;
+        //playerRb.MovePosition(transform.position + tempVect);
+
+
+        playerRb.velocity = Vector3.forward.normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
+
     }
 
     private void Update()
     {
-        //transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);
+        //transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);      //Translate ile hareket
 
         DragHandler();
 
-        float posX = Mathf.Clamp(transform.position.x, -2.75f, 2.75f);
-        transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+        //playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, _speed * 20) * Time.deltaTime;
     }
 
     void DragHandler()
     {
-        if (GameManager.instance.isGameOver)
-        {
-            return;
-        }
-
         if (Input.GetMouseButton(0))
         {
+            if (GameManager.instance.isGameOver)
+            {
+                return;
+            }
+
             Vector2 currentTapPos = Input.mousePosition;
 
             if (lastTapPos == Vector2.zero)
@@ -79,6 +84,10 @@ public class PlayerMovement : MonoBehaviour
             lastTapPos = currentTapPos;
 
             transform.Translate(Vector3.left.normalized * dragSpeed * delta * Time.deltaTime);
+
+            float posX = Mathf.Clamp(transform.position.x, -2.75f, 2.75f);
+            transform.position = new Vector3(posX, transform.position.y, transform.position.z);
+            //playerRb.velocity = Vector3.left.normalized * dragSpeed * delta * Time.fixedDeltaTime * 20;
         }
         if (Input.GetMouseButtonUp(0))
         {
