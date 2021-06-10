@@ -6,6 +6,9 @@ public class EndArea : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.singleton.RestartGame();
+        if (other.gameObject.CompareTag(Tags.mainCubeTag) || other.gameObject.CompareTag(Tags.playerGFXTag))
+        {
+            GameManager.instance.RestartGame();
+        }
     }
 }

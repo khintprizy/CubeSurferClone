@@ -4,29 +4,68 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 2f;
-    public float dragSpeed = 1f;
+    [SerializeField]
+    private float _speed = 2f;
+    public float speed
+    {
+        get
+        {
+            return _speed;
+        }
+        set
+        {
+            _speed = value;
+        }
+    }
+
+
+    [SerializeField]
+    private float dragSpeed = 1f;
 
     private Vector2 lastTapPos;
 
+    Rigidbody playerRb;
+
+    public static PlayerMovement instance;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        playerRb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        playerRb.velocity = Vector3.forward * _speed * Time.deltaTime * 20;
+    }
+
     private void Update()
     {
-        transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);
+        //transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);
 
         DragHandler();
 
-        if (transform.position.x > 2.75f)
-        {
-            transform.position = new Vector3(2.75f, transform.position.y, transform.position.z);
-        }
-        if (transform.position.x < -2.75f)
-        {
-            transform.position = new Vector3(-2.75f, transform.position.y, transform.position.z);
-        }
+        float posX = Mathf.Clamp(transform.position.x, -2.75f, 2.75f);
+        transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
 
     void DragHandler()
     {
+        if (GameManager.instance.isGameOver)
+        {
+            return;
+        }
+
         if (Input.GetMouseButton(0))
         {
             Vector2 currentTapPos = Input.mousePosition;

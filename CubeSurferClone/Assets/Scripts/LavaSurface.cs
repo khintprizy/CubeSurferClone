@@ -6,13 +6,13 @@ public class LavaSurface : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "MainCube")
+        if (other.gameObject.CompareTag(Tags.mainCubeTag))
         {
             Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "PlayerGFX")
+        if (other.gameObject.CompareTag(Tags.playerGFXTag))
         {
-            GameManager.singleton.Failed();
+            GameManager.instance.Failed();
         }
     }
 }

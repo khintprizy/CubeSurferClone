@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    //public bool isGameOver;
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "DestroyerCube" || collision.gameObject.tag == "LavaSurface" || collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag(Tags.destroyerCubeTag) || collision.gameObject.CompareTag(Tags.lavaSurfaceTag) || collision.gameObject.CompareTag(Tags.roadTag))
         {
-            GameManager.singleton.Failed();
+            GameManager.instance.Failed();
         }
-        if (collision.gameObject.tag == "Coin")
+        if (collision.gameObject.CompareTag("Coin"))
         {
             Destroy(collision.gameObject);
         }
-        
     }
-
-
 }

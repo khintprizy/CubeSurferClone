@@ -1,24 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public int score;
     private GameObject player;
 
-    public Text scoreText;
+    public bool isGameOver = false;
 
-    public static GameManager singleton;
+    public static GameManager instance;
     void Awake()
     {
-        if (singleton == null)
+        if (instance == null)
         {
-            singleton = this;
+            instance = this;
         }
-        else if (singleton != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -26,30 +24,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        int a = PlayerPrefs.GetInt("Score");
-        scoreText.text = a.ToString();
+        player = PlayerMovement.instance.gameObject;
     }
 
     public void RestartGame()
     {
         player.GetComponent<PlayerMovement>().speed = 0;
         Invoke("ReloadScene", 2);
-    }
-
-    public void AddScore(int amount)
-    {
-        score = GetScore();
-        score = score + amount;
-        PlayerPrefs.SetInt("Score", score);
-        scoreText.text = GetScore().ToString(); 
-    }
-
-    int GetScore()
-    {
-        int a = PlayerPrefs.GetInt("Score");
-        scoreText.text = a.ToString();
-        return a;
     }
 
     void ReloadScene()
@@ -59,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Failed()
     {
+        isGameOver = true;
         RestartGame();
         Debug.Log("Game Over!!!!!!");
     }

@@ -8,28 +8,26 @@ public class CubeHandler : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = PlayerMovement.instance.gameObject;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.gameObject.tag == "DestroyerCube")
+        if (collision.transform.gameObject.CompareTag(Tags.destroyerCubeTag))
         {
             if (collision.collider != null)
             {
                 collision.collider.enabled = false;
             }
-            //gameObject.transform.parent = null;
-            /*float playerPosY = player.transform.position.y;
-            playerPosY = playerPosY - 1f;
-            player.transform.position = new Vector3(player.transform.position.x, playerPosY, player.transform.position.z);*/
-            Destroy(gameObject);
+            gameObject.transform.parent = null;
+
+            //Destroy(gameObject);
         }
 
-        if (collision.transform.gameObject.tag == "PowerUp" && transform.gameObject.tag == "MainCube")
+        if (collision.transform.gameObject.CompareTag(Tags.powerupCubeTag) && transform.gameObject.CompareTag(Tags.mainCubeTag))
         {
             Transform go = collision.transform;
-            go.gameObject.tag = "MainCube";
+            go.gameObject.tag = Tags.mainCubeTag;
 
             float playerPosY = player.transform.position.y;
             playerPosY = playerPosY + 1.1f;
@@ -40,9 +38,9 @@ public class CubeHandler : MonoBehaviour
             go.localPosition = new Vector3(0, posgoY, 0);
         }
 
-        if (collision.transform.gameObject.tag == "Coin")
+        if (collision.transform.gameObject.CompareTag(Tags.coinTag))
         {
-            GameManager.singleton.AddScore(1);
+            UIManager.instance.AddScore(1);
             Destroy(collision.gameObject);
         }
     }
