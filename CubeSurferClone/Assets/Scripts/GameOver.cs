@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Tags.destroyerCubeTag) || collision.gameObject.CompareTag(Tags.lavaSurfaceTag) || collision.gameObject.CompareTag(Tags.roadTag))
         {
-            GameManager.instance.Failed();
+            GameManager.instance.GameEnd();
         }
         if (collision.gameObject.CompareTag("Coin"))
         {

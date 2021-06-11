@@ -50,9 +50,7 @@ public class PlayerMovement : MonoBehaviour
         //tempVect = tempVect.normalized * speed * Time.fixedDeltaTime;
         //playerRb.MovePosition(transform.position + tempVect);
 
-
         playerRb.velocity = Vector3.forward.normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
-
     }
 
     private void Update()

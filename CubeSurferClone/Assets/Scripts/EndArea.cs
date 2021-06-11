@@ -8,7 +8,7 @@ public class EndArea : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Tags.mainCubeTag) || other.gameObject.CompareTag(Tags.playerGFXTag))
         {
-            GameManager.instance.RestartGame();
+            GameManager.instance.GameEnd();
         }
     }
 }
