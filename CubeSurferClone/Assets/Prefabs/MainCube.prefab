@@ -123,5 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f71af25555cacec4d8a3e13c76be1711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  values: {fileID: 11400000, guid: 8bd0c7ac8a674914397dc8f864ed5a39, type: 2}
   addToPlayerPos: 1.15
   distanceBetweenLastChild: 1.05

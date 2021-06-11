@@ -13,7 +13,7 @@ public class Trail : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x, 0.1f, player.transform.position.z);
+        transform.position = new Vector3(player.transform.position.x, 0.15f, player.transform.position.z);
         transform.LookAt(transform.up);
     }
 }
