@@ -5,15 +5,32 @@ using UnityEngine;
 public class Trail : MonoBehaviour
 {
     GameObject player;
+    GameObject theLastChild;
+    private Vector3 offsetFromGround;
+    private int totalChildCount;
 
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
+        offsetFromGround = new Vector3(0, 0.3f, 0);
+        totalChildCount = player.transform.childCount;
     }
 
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x, 0.15f, player.transform.position.z);
-        transform.LookAt(transform.up);
+        totalChildCount = player.transform.childCount;
+
+        if (GameManager.instance.isGameOver || totalChildCount < 3)
+        {
+            transform.gameObject.SetActive(false);
+            return;
+        }
+
+        theLastChild = player.transform.GetChild(totalChildCount - 1).gameObject;
+
+
+
+        transform.position = theLastChild.transform.position + offsetFromGround;
+
     }
 }

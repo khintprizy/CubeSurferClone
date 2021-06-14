@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     private GameObject player;
     private Vector3 offset;
+    private int cubeCount;
 
     private void Start()
     {
@@ -15,8 +16,16 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 pos = player.transform.position + offset;
-        pos.y = 15f;                 // y ekseninde kamera sabit
-        transform.position = pos;
+        cubeCount = player.transform.childCount;
+
+        Vector3 unitVector = transform.forward * cubeCount;
+
+        Vector3 pos = player.transform.position + offset - unitVector;
+        pos.y = 13f + cubeCount/2;                 // y ekseninde kamera sabit
+
+
+        //transform.position = pos;
+
+        transform.position = Vector3.Lerp(transform.position, pos, .2f);
     }
 }
