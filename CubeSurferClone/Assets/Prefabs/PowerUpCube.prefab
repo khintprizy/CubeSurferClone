@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 3067193447030914264}
   - component: {fileID: 330141920394679329}
   - component: {fileID: 1196006545127546520}
-  - component: {fileID: 289167220511660617}
-  - component: {fileID: -231230506679558251}
   m_Layer: 0
   m_Name: PowerUpCube
   m_TagString: PowerUp
@@ -95,34 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0.25}
---- !u!54 &289167220511660617
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949871764390082588}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 1
---- !u!114 &-231230506679558251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949871764390082588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f71af25555cacec4d8a3e13c76be1711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  values: {fileID: 11400000, guid: 8bd0c7ac8a674914397dc8f864ed5a39, type: 2}
-  addToPlayerPos: 1.15
-  distanceBetweenLastChild: 1.05

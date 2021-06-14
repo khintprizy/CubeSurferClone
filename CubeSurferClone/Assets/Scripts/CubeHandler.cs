@@ -8,10 +8,12 @@ public class CubeHandler : MonoBehaviour
     private CubeValues values;
 
     private GameObject player;
+    private Rigidbody cubeRb;
 
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
+        cubeRb = gameObject.GetComponent<Rigidbody>();
     }
 
 
@@ -24,7 +26,7 @@ public class CubeHandler : MonoBehaviour
                 collision.collider.enabled = false;
             }
             gameObject.transform.parent = null;
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            cubeRb.isKinematic = false;
 
             //Destroy(gameObject);
         }
@@ -33,6 +35,17 @@ public class CubeHandler : MonoBehaviour
         {
             Transform go = collision.transform;
             go.gameObject.tag = Tags.mainCubeTag;
+
+            //------------V2 INCELEMESI UZERINE EKLENDI ----------------------
+            //rb ekleniyor
+            Rigidbody addedRb = go.gameObject.AddComponent<Rigidbody>();
+            addedRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+            addedRb.mass = 100;
+            addedRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            //script ekleniyor
+            CubeHandler addedScript = go.gameObject.AddComponent<CubeHandler>();
+            addedScript.values = values;
+            //-----------------------------------------------------------------
 
             //stackleyecegimiz cube icin tum playeri kaldirarak yer aciyoruz
             float playerPosY = player.transform.position.y;
