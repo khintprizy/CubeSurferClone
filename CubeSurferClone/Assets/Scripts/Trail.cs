@@ -12,7 +12,7 @@ public class Trail : MonoBehaviour
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
-        offsetFromGround = new Vector3(0, 0.3f, 0);
+        offsetFromGround = new Vector3(0, 0.15f, 0);
         totalChildCount = player.transform.childCount;
     }
 

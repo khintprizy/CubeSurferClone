@@ -6,7 +6,13 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    private Text totalScoreText;
+
+    [SerializeField]
+    private int score = 0;
+    [SerializeField]
     private Text scoreText;
+
 
     public static UIManager instance;
     void Awake()
@@ -24,20 +30,31 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         int a = PlayerPrefs.GetInt("Score");
-        scoreText.text = a.ToString();
+        totalScoreText.text = a.ToString();
     }
 
     public void AddScore(int amount)
     {
-        int a = GetScore() + amount;
-        PlayerPrefs.SetInt("Score", a);
-        scoreText.text = a.ToString();
+        score += amount;
+        scoreText.text = score.ToString();
+
+        //int a = GetScore() + amount;
+        //PlayerPrefs.SetInt("Score", a);
+        //totalScoreText.text = a.ToString();
+
     }
 
     int GetScore()
     {
         int a = PlayerPrefs.GetInt("Score");
-        scoreText.text = a.ToString();
+        totalScoreText.text = a.ToString();
         return a;
+    }
+
+    public void CalculateAndAddToTotal(int multiplier)
+    {
+        int levelFinishScore = score * multiplier + GetScore();
+        PlayerPrefs.SetInt("Score", levelFinishScore);
+        totalScoreText.text = levelFinishScore.ToString();
     }
 }

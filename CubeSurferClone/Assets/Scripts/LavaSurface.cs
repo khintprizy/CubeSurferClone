@@ -12,7 +12,7 @@ public class LavaSurface : MonoBehaviour
         }
         if (other.gameObject.CompareTag(Tags.playerGFXTag))
         {
-            GameManager.instance.GameEnd();
+            GameManager.instance.GameWin();
         }
     }
 }

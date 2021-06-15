@@ -26,7 +26,8 @@ public class CubeHandler : MonoBehaviour
                 collision.collider.enabled = false;
             }
             gameObject.transform.parent = null;
-            cubeRb.isKinematic = false;
+            cubeRb.constraints = RigidbodyConstraints.FreezeAll;
+            
 
             //Destroy(gameObject);
         }

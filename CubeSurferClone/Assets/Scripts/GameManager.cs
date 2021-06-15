@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-    public Action GameEnd = delegate { };
+    public Action GameWin = delegate { };
+    public Action GameFail = delegate { };
 
     public static GameManager instance;
     void Awake()
@@ -24,9 +25,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        GameEnd += ResetSpeed;
-        GameEnd += ReloadWithDelay;
-        GameEnd += Failed;
+        GameWin += ResetSpeed;
+        GameWin += ReloadWithDelay;
+        GameWin += GameOver;
+
+        GameFail += ResetSpeed;
+        GameFail += LoadNextLevelWithDelay;
+        GameFail += GameOver;
     }
 
     private void Start()
@@ -41,17 +46,24 @@ public class GameManager : MonoBehaviour
 
     void ReloadScene()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     void ReloadWithDelay()
     {
         Invoke("ReloadScene", 2);
     }
 
-    public void Failed()
+    public void GameOver()
     {
         isGameOver = true;
-        //ResetSpeed();
-        Debug.Log("Game Over!!!!!!");
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    private void LoadNextLevelWithDelay()
+    {
+        Invoke("LoadNextLevel", 3);
     }
 }
