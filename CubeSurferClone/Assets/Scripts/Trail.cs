@@ -12,7 +12,7 @@ public class Trail : MonoBehaviour
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
-        offsetFromGround = new Vector3(0, 0.15f, 0);
+        offsetFromGround = new Vector3(0, 0.15f, 0);    // yerden biraz yuksekte durunca daha iyi gorunuyor
         totalChildCount = player.transform.childCount;
     }
 
@@ -28,9 +28,6 @@ public class Trail : MonoBehaviour
 
         theLastChild = player.transform.GetChild(totalChildCount - 1).gameObject;
 
-
-
         transform.position = theLastChild.transform.position + offsetFromGround;
-
     }
 }

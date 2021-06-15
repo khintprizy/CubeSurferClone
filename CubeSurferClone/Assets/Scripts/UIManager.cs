@@ -14,14 +14,21 @@ public class UIManager : MonoBehaviour
     private Text scoreText;
 
 
-    public static UIManager instance;
+    private static UIManager _instance;
+    public static UIManager instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
     void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }

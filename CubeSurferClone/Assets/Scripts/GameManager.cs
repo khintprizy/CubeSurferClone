@@ -8,29 +8,47 @@ public class GameManager : MonoBehaviour
 {
     private GameObject player;
 
-    public bool isGameOver = false;
+    private bool _isGameOver = false;
+    public bool isGameOver
+    {
+        get
+        {
+            return _isGameOver;
+        }
+        set
+        {
+            _isGameOver = value;
+        }
+    }
 
     public Action GameWin = delegate { };
     public Action GameFail = delegate { };
 
-    public static GameManager instance;
+    private static GameManager _instance;
+    public static GameManager instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
     void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
 
         GameWin += ResetSpeed;
-        GameWin += ReloadWithDelay;
+        GameWin += LoadNextLevelWithDelay;
         GameWin += GameOver;
 
         GameFail += ResetSpeed;
-        GameFail += LoadNextLevelWithDelay;
+        GameFail += ReloadWithDelay;
         GameFail += GameOver;
     }
 
@@ -55,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameOver = true;
+        _isGameOver = true;
     }
 
     private void LoadNextLevel()

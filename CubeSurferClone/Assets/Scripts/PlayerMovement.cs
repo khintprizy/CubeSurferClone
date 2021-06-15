@@ -5,6 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    private float dragSpeed = 1f;
+
+    private Vector2 lastTapPos;
+
+    Rigidbody playerRb;
+    GameManager gameManager;
+
+    [SerializeField]
     private float _speed = 2f;
     public float speed
     {
@@ -18,22 +26,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    [SerializeField]
-    private float dragSpeed = 1f;
-
-    private Vector2 lastTapPos;
-
-    Rigidbody playerRb;
-
-    public static PlayerMovement instance;
+    private static PlayerMovement _instance;
+    public static PlayerMovement instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
     void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
             Destroy(gameObject);
         }
@@ -42,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        gameManager = GameManager.instance;
     }
 
     private void FixedUpdate()
@@ -66,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if (GameManager.instance.isGameOver)
+            if (gameManager.isGameOver)
             {
                 return;
             }

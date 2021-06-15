@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class LavaSurface : MonoBehaviour
 {
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(Tags.mainCubeTag))
@@ -12,7 +19,7 @@ public class LavaSurface : MonoBehaviour
         }
         if (other.gameObject.CompareTag(Tags.playerGFXTag))
         {
-            GameManager.instance.GameWin();
+            gameManager.GameWin();
         }
     }
 }

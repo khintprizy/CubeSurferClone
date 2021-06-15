@@ -10,16 +10,18 @@ public class CubeHandler : MonoBehaviour
     private GameObject player;
     private Rigidbody cubeRb;
 
+    UIManager uiManager;
+
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
         cubeRb = gameObject.GetComponent<Rigidbody>();
+        uiManager = UIManager.instance;
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.gameObject.CompareTag(Tags.destroyerCubeTag))
+        if (collision.transform.gameObject.CompareTag(Tags.destroyerCubeTag) || collision.transform.gameObject.CompareTag(Tags.destroyerOnMultiplier))
         {
             if (collision.collider != null)
             {
@@ -27,9 +29,6 @@ public class CubeHandler : MonoBehaviour
             }
             gameObject.transform.parent = null;
             cubeRb.constraints = RigidbodyConstraints.FreezeAll;
-            
-
-            //Destroy(gameObject);
         }
 
         if (collision.transform.gameObject.CompareTag(Tags.powerupCubeTag) && transform.gameObject.CompareTag(Tags.mainCubeTag))
@@ -37,7 +36,7 @@ public class CubeHandler : MonoBehaviour
             Transform go = collision.transform;
             go.gameObject.tag = Tags.mainCubeTag;
 
-            //------------V2 INCELEMESI UZERINE EKLENDI ----------------------
+            //------------V2 INCELEMESI UZERINE EKLENDI ----------------------  stacklenen kube rb ve script ekleniyor
             //rb ekleniyor
             Rigidbody addedRb = go.gameObject.AddComponent<Rigidbody>();
             addedRb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
@@ -67,7 +66,7 @@ public class CubeHandler : MonoBehaviour
 
         if (collision.transform.gameObject.CompareTag(Tags.coinTag))
         {
-            UIManager.instance.AddScore(1);
+            uiManager.AddScore(1);
             Destroy(collision.gameObject);
         }
     }

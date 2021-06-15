@@ -5,17 +5,21 @@ using UnityEngine;
 public class GameOver : MonoBehaviour
 {
     private GameObject player;
+    GameManager gameManager;
+    UIManager uiManager;
 
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
+        gameManager = GameManager.instance;
+        uiManager = UIManager.instance;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag(Tags.destroyerCubeTag) || collision.gameObject.CompareTag(Tags.lavaSurfaceTag) || collision.gameObject.CompareTag(Tags.roadTag))
         {
-            GameManager.instance.GameWin();
+            gameManager.GameFail();
         }
         if (collision.gameObject.CompareTag("Coin"))
         {
@@ -25,8 +29,19 @@ public class GameOver : MonoBehaviour
         {
             transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             player.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            UIManager.instance.CalculateAndAddToTotal(collision.transform.GetComponent<ScoreMultiplier>().multiplyValue);
-            GameManager.instance.GameWin();
+            uiManager.CalculateAndAddToTotal(collision.transform.GetComponent<ScoreMultiplier>().multiplyValue);
+            gameManager.GameWin();
+        }
+
+        // player yukaridaki multiplierdan hemen once cocugu olan ve kupleri azaltan colliderlara
+        // carpabiliyor, onlara carpinca da bi sonraki levela gecebilmesi icin asagidaki scripti uygulamasi lazim
+        // carpinca, parenti olan basamaga ulasip ondaki x degerini alarak hesaplamayi yapiyoruz
+        if (collision.gameObject.CompareTag(Tags.destroyerOnMultiplier))
+        {
+            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            player.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            gameManager.GameWin();
+            uiManager.CalculateAndAddToTotal(collision.transform.parent.GetComponent<ScoreMultiplier>().multiplyValue);
         }
     }
 }

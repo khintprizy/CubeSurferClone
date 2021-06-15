@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 382110686120616323}
   m_Layer: 0
   m_Name: DestroyerCube (18)
-  m_TagString: DestroyerCube
+  m_TagString: DestroyerOnMultiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 3867570946799273035}
   m_Layer: 0
   m_Name: DestroyerCube (16)
-  m_TagString: DestroyerCube
+  m_TagString: DestroyerOnMultiplier
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

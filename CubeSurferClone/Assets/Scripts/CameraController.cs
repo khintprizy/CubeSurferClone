@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
 
         //transform.position = pos;
 
+        // Lerp kullaninca zoom in ve zoom out daha smooth gerceklesiyor
         transform.position = Vector3.Lerp(transform.position, pos, .3f);
     }
 }

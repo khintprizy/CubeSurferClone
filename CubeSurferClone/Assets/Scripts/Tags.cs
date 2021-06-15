@@ -12,4 +12,5 @@ public static class Tags
     public static string roadTag = "Ground";
     public static string coinTag = "Coin";
     public static string multiplierTag = "Multiplier";
+    public static string destroyerOnMultiplier = "DestroyerOnMultiplier";
 }
