@@ -9,25 +9,41 @@ public class Trail : MonoBehaviour
     private Vector3 offsetFromGround;
     private int totalChildCount;
 
+    GameManager gameManager;
+
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
-        offsetFromGround = new Vector3(0, 0.15f, 0);    // yerden biraz yuksekte durunca daha iyi gorunuyor
+        gameManager = GameManager.instance;
+        offsetFromGround = new Vector3(0, 0, 0.15f);    // yerden biraz yuksekte durunca daha iyi gorunuyor
         totalChildCount = player.transform.childCount;
+
+        CalculateTrailPosition(1);
     }
 
     void Update()
     {
-        totalChildCount = player.transform.childCount;
+        //totalChildCount = player.transform.childCount;
 
-        if (GameManager.instance.isGameOver || totalChildCount < 3)
+        if (gameManager.isGameOver || totalChildCount < 3)
         {
             transform.gameObject.SetActive(false);
             return;
         }
 
-        theLastChild = player.transform.GetChild(totalChildCount - 1).gameObject;
+        //theLastChild = player.transform.GetChild(totalChildCount - 1).gameObject;
+        //transform.position = theLastChild.transform.position + offsetFromGround;
+    }
 
-        transform.position = theLastChild.transform.position + offsetFromGround;
+    //cube sayisi degistiginde diger scriptlerden cagiracagiz
+    public void CalculateTrailPosition(int lastChildCal)
+    {
+        totalChildCount = player.transform.childCount;
+
+        theLastChild = player.transform.GetChild(totalChildCount - lastChildCal).gameObject;
+
+        transform.parent = theLastChild.transform;
+        //transform.localPosition = theLastChild.transform.localPosition + offsetFromGround;
+        transform.localPosition = offsetFromGround;
     }
 }

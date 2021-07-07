@@ -5,12 +5,16 @@ using UnityEngine;
 public class GameOver : MonoBehaviour
 {
     private GameObject player;
+    Rigidbody playerRb;
+    Rigidbody rb;
     GameManager gameManager;
     UIManager uiManager;
 
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
+        playerRb = player.transform.GetComponent<Rigidbody>();
+        rb = transform.GetComponent<Rigidbody>();
         gameManager = GameManager.instance;
         uiManager = UIManager.instance;
     }
@@ -27,8 +31,8 @@ public class GameOver : MonoBehaviour
         }
         if (collision.gameObject.CompareTag(Tags.multiplierTag))
         {
-            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            player.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            playerRb.constraints = RigidbodyConstraints.FreezeAll;
             uiManager.CalculateAndAddToTotal(collision.transform.GetComponent<ScoreMultiplier>().multiplyValue);
             gameManager.GameWin();
         }
@@ -38,8 +42,8 @@ public class GameOver : MonoBehaviour
         // carpinca, parenti olan basamaga ulasip ondaki x degerini alarak hesaplamayi yapiyoruz
         if (collision.gameObject.CompareTag(Tags.destroyerOnMultiplier))
         {
-            transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            player.transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            playerRb.constraints = RigidbodyConstraints.FreezeAll;
             gameManager.GameWin();
             uiManager.CalculateAndAddToTotal(collision.transform.parent.GetComponent<ScoreMultiplier>().multiplyValue);
         }

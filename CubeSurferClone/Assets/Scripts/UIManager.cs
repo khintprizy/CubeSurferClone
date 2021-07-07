@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text levelNo;
 
+    LevelManager levelManager;
 
     private static UIManager _instance;
     public static UIManager instance
@@ -38,9 +39,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        levelManager = LevelManager.instance;
         int a = PlayerPrefs.GetInt("Score");
         totalScoreText.text = a.ToString();
-        levelNo.text = "Level " + (LevelManager.instance.GetCurrentLevel() + 1).ToString();
+        levelNo.text = "Level " + (levelManager.GetCurrentLevel() + 1).ToString();
     }
 
     public void AddScore(int amount)

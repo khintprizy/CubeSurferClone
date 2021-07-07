@@ -58,15 +58,13 @@ public class PlayerMovement : MonoBehaviour
         //tempVect = tempVect.normalized * speed * Time.fixedDeltaTime;
         //playerRb.MovePosition(transform.position + tempVect);
 
-        playerRb.velocity = Vector3.forward.normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
+        playerRb.velocity = new Vector3(0, 0, 1).normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
     }
 
     private void Update()
     {
         //transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);      //Translate ile hareket
-
         DragHandler();
-
         //playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, _speed * 20) * Time.deltaTime;
     }
 
@@ -79,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
 
+            //playerRb.velocity = Vector3.forward.normalized * _speed * Time.fixedDeltaTime * 20;
+
             Vector2 currentTapPos = Input.mousePosition;
 
             if (lastTapPos == Vector2.zero)
@@ -89,11 +89,11 @@ public class PlayerMovement : MonoBehaviour
             float delta = lastTapPos.x - currentTapPos.x;
             lastTapPos = currentTapPos;
 
+            //playerRb.velocity = new Vector3(-1, 0, 0).normalized * dragSpeed * delta * Time.deltaTime * 20;
             transform.Translate(Vector3.left.normalized * dragSpeed * delta * Time.deltaTime);
 
             float posX = Mathf.Clamp(transform.position.x, -2.75f, 2.75f);
             transform.position = new Vector3(posX, transform.position.y, transform.position.z);
-            //playerRb.velocity = Vector3.left.normalized * dragSpeed * delta * Time.fixedDeltaTime * 20;
         }
         if (Input.GetMouseButtonUp(0))
         {

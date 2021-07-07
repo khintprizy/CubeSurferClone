@@ -11,12 +11,16 @@ public class CubeHandler : MonoBehaviour
     private Rigidbody cubeRb;
 
     UIManager uiManager;
+    CameraController camController;
+    Trail trail;
 
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
         cubeRb = gameObject.GetComponent<Rigidbody>();
         uiManager = UIManager.instance;
+        camController = CameraController.instance;
+        trail = FindObjectOfType<Trail>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,6 +33,10 @@ public class CubeHandler : MonoBehaviour
             }
             gameObject.transform.parent = null;
             cubeRb.constraints = RigidbodyConstraints.FreezeAll;
+            //ChangeZoom
+            camController.ChangeZoom();
+            // calculate trail pos
+            trail.CalculateTrailPosition(1);
         }
 
         if (collision.transform.gameObject.CompareTag(Tags.powerupCubeTag) && transform.gameObject.CompareTag(Tags.mainCubeTag))
@@ -62,6 +70,11 @@ public class CubeHandler : MonoBehaviour
 
             //float posgoY = -(player.transform.childCount - 1.31f);
             //go.localPosition = new Vector3(0, posgoY, 0);
+
+            //ChangeZoom
+            camController.ChangeZoom();
+            //calculate trail pos
+            trail.CalculateTrailPosition(1);
         }
 
         if (collision.transform.gameObject.CompareTag(Tags.coinTag))

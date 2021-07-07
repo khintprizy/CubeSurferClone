@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private GameObject player;
+    LevelManager levelManager;
 
     private bool _isGameOver = false;
     public bool isGameOver
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        levelManager = LevelManager.instance;
         player = PlayerMovement.instance.gameObject;
     }
 
@@ -79,7 +81,7 @@ public class GameManager : MonoBehaviour
     private void LoadNextLevel()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        LevelManager.instance.IncreaseCurrentLevel();
+        levelManager.IncreaseCurrentLevel();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void LoadNextLevelWithDelay()

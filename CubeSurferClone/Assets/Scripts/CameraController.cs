@@ -8,25 +8,49 @@ public class CameraController : MonoBehaviour
     private Vector3 offset;
     private int cubeCount;
 
+    Vector3 unitVector;
+
+    private static CameraController _instance;
+    public static CameraController instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+    void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         player = PlayerMovement.instance.gameObject;
         offset = transform.position - player.transform.position;
+
+        ChangeZoom();
     }
 
     private void LateUpdate()
     {
-        cubeCount = player.transform.childCount;
-
-        Vector3 unitVector = transform.forward * cubeCount;
-
         Vector3 pos = player.transform.position + offset - unitVector;
         pos.y = 13f + cubeCount/2;                 // y ekseninde kamera sabit
 
-
-        //transform.position = pos;
-
         // Lerp kullaninca zoom in ve zoom out daha smooth gerceklesiyor
         transform.position = Vector3.Lerp(transform.position, pos, .3f);
+    }
+
+    //asagidaki fonksiyonu ne zaman cubeCount degisse cagiracagiz
+    public void ChangeZoom()
+    {
+        cubeCount = player.transform.childCount;
+        unitVector = transform.forward * cubeCount;
     }
 }
