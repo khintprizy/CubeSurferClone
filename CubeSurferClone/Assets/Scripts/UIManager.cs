@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     private int score = 0;
     [SerializeField]
     private Text scoreText;
+    [SerializeField]
+    private Text levelNo;
 
 
     private static UIManager _instance;
@@ -38,6 +40,7 @@ public class UIManager : MonoBehaviour
     {
         int a = PlayerPrefs.GetInt("Score");
         totalScoreText.text = a.ToString();
+        levelNo.text = "Level " + (LevelManager.instance.GetCurrentLevel() + 1).ToString();
     }
 
     public void AddScore(int amount)
