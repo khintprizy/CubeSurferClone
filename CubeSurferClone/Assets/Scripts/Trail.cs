@@ -43,7 +43,6 @@ public class Trail : MonoBehaviour
         theLastChild = player.transform.GetChild(totalChildCount - lastChildCal).gameObject;
 
         transform.parent = theLastChild.transform;
-        //transform.localPosition = theLastChild.transform.localPosition + offsetFromGround;
         transform.localPosition = offsetFromGround;
     }
 }

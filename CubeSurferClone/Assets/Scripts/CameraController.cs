@@ -38,13 +38,14 @@ public class CameraController : MonoBehaviour
         ChangeZoom();
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         Vector3 pos = player.transform.position + offset - unitVector;
         pos.y = 13f + cubeCount/2;                 // y ekseninde kamera sabit
 
         // Lerp kullaninca zoom in ve zoom out daha smooth gerceklesiyor
-        transform.position = Vector3.Lerp(transform.position, pos, .3f);
+        transform.position = Vector3.Lerp(transform.position, pos, .4f);
+        //transform.position = pos;
     }
 
     //asagidaki fonksiyonu ne zaman cubeCount degisse cagiracagiz

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float dragSpeed = 1f;
+    private float dragSpeed = 10f;
 
     private Vector2 lastTapPos;
 
@@ -58,13 +58,15 @@ public class PlayerMovement : MonoBehaviour
         //tempVect = tempVect.normalized * speed * Time.fixedDeltaTime;
         //playerRb.MovePosition(transform.position + tempVect);
 
-        playerRb.velocity = new Vector3(0, 0, 1).normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
+        playerRb.velocity = transform.forward.normalized * _speed * Time.fixedDeltaTime * 20;     //rb velocity ile hareket
+        //DragHandler();
+        DragController();
     }
 
     private void Update()
     {
         //transform.Translate(Vector3.forward.normalized * speed * Time.deltaTime);      //Translate ile hareket
-        DragHandler();
+        
         //playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, _speed * 20) * Time.deltaTime;
     }
 
@@ -90,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             lastTapPos = currentTapPos;
 
             //playerRb.velocity = new Vector3(-1, 0, 0).normalized * dragSpeed * delta * Time.deltaTime * 20;
-            transform.Translate(Vector3.left.normalized * dragSpeed * delta * Time.deltaTime);
+            transform.Translate(Vector3.left.normalized * dragSpeed * delta/4 * Time.fixedDeltaTime);
 
             float posX = Mathf.Clamp(transform.position.x, -2.75f, 2.75f);
             transform.position = new Vector3(posX, transform.position.y, transform.position.z);
@@ -98,6 +100,21 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             lastTapPos = Vector2.zero;
+        }
+    }
+
+    void DragController()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            if (gameManager.isGameOver)
+            {
+                return;
+            }
+
+            float mouseX = Input.GetAxisRaw("Mouse X");
+            transform.Translate(Vector3.left.normalized * dragSpeed * -mouseX * Time.fixedDeltaTime);
+
         }
     }
 }

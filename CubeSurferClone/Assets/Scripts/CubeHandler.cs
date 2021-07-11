@@ -31,6 +31,7 @@ public class CubeHandler : MonoBehaviour
             {
                 collision.collider.enabled = false;
             }
+
             gameObject.transform.parent = null;
             cubeRb.constraints = RigidbodyConstraints.FreezeAll;
             //ChangeZoom

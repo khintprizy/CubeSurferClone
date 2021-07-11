@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d95cfdbfade37647b9eedb9c7d922ae, type: 3}
   m_Name: MainCubeValues
   m_EditorClassIdentifier: 
-  addToPlayerPos: 1.15
+  addToPlayerPos: 1.2
   distanceBetweenLastChild: 1.05

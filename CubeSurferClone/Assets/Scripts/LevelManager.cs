@@ -63,6 +63,12 @@ public class LevelManager : MonoBehaviour
     public void IncreaseCurrentLevel()
     {
         int a = GetCurrentLevel() + 1;
+
+        if (a > 2)
+        {
+            a = 0;
+        }
+
         PlayerPrefs.SetInt("CurrentLevel", a);
     }
 }
